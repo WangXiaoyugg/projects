@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>选项卡轮播切换效果</title>
+	<style>
+	.ct{
+		width:960px;
+		margin: 100px auto;
+		text-align: center;
+	}
+	.box{
+		margin: 0 auto;
+		width: 200px;height: 200px;
+		border: 1px solid #ddd;
+		overflow: hidden;/*这个属性定义溢出元素内容区的内容会如何处理。如果值为 scroll，不论是否需要，用户代理都会提供一种滚动机制。因此，有可能即使元素框中可以放下所有内容也会出现滚动条.*/
+	}
+	.list{
+
+		width: 200px;height: 200px;
+		line-height: 200px;font-size: 80px;
+		text-align: center;color: white;
+	}
+	#one{background: green;}
+	#two{background: red;}
+	#three{background: blue;}
+	#four{background: orange;}
+	
+	.anchor{
+		margin: 0 auto;
+		width: 200px;
+		padding-top: 10px;
+		text-align: right;
+	}
+	.click{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		border: 1px solid #ccc;
+		background: #f7f7f7;
+		color: #333;
+		font-size: 12px;
+		font-weight: bold;
+		text-align: center;
+		line-height: 20px;
+		text-decoration: none;
+	}
+	.click:hover{
+		background: #eee;
+		color: #345;
+	}
+	</style>
+</head>
+<body>
+	<div class="ct">
+		<div class="box">
+			<div class="list" id="one">1</div>
+			<div class="list" id="two">2</div>
+			<div class="list" id="three">3</div>
+			<div class="list" id="four">4</div>
+		</div>
+		<div class="anchor">
+			<a class="click" href="#one">1</a>
+			<a class="click" href="#two">2</a>
+			<a class="click" href="#three">3</a>
+			<a class="click" href="#four">4</a>
+		</div>
+	</div>
+</body>
+</html>

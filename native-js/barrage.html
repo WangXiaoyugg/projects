@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>自制弹幕</title>
+	<style>
+	html {
+		box-sizing: border-box;
+		font-size: 1rem;
+		background: #ffc600;
+		height: 100%;
+	}
+	*,*:before,*:after {
+		box-sizing: inherit;
+	}
+	body{
+		margin: 0;
+		padding: 0;
+		font-family: Arial, cursive;
+		height: 100%;
+		overflow: hidden;
+	}
+	h1 {
+		margin-top: 20px;
+		text-align: center;
+
+	}
+	.box {
+		position: relative;
+		overflow: hidden;
+		margin: 30px auto;
+		width: 50%;
+		height: 50%;
+		background: #fff;
+		border:5px solid #ccc;
+		border-radius: 5px;
+		box-shadow:  0 1px 2px rgba(0,0,0,.5);
+	}
+	.i-box {
+		display: block;
+		margin: 10px auto 20px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 1.5rem;
+		padding: 5px 10px;
+	}
+	.btn-ct {
+		width: 100%;
+		margin:  0 auto;
+		text-align: center;
+	}
+	#launch,#clear {
+		padding: 10px 20px;
+		background: orange;
+		color:#fff;
+		border: 1px solid #eee;
+		border-radius: 5px;
+		margin-left:  20px;
+		outline: none;
+		box-shadow:  0 1px 2px rgba(0,0,0,.3);
+		font-weight: bolder;
+		font-size: 2rem;
+	}
+	#launch:hover,#clear:hover{
+		background: #ff6;
+		color:red;
+	}
+	@keyframes move {
+		0% {left: 0}
+		100% {left:100%;}
+	}
+	</style>
+</head>
+<body>
+	<h1>自制弹幕</h1>
+	<div class="box"></div>
+	<input type="text" class="i-box" placeholder=" 发射弹幕 " maxlength="20" minlength="1">
+	<div class="btn-ct">
+		<button id="launch">发射</button>
+		<button id="clear">清屏</button>
+	</div>
+	<script>
+		//获取元素
+		var box = document.querySelector('.box');
+		var launch = document.querySelector('#launch');
+		var clear = document.querySelector('#clear');
+		var text = document.querySelector('.i-box');
+		var height = box.clientHeight;
+
+		//创建随机色函数
+		function randColor() {
+			var r = parseInt( Math.random() * 255);
+			var g = parseInt( Math.random() * 255);
+			var b = parseInt( Math.random() * 255);
+			return "rgb("+r+","+g+","+b+")"
+		}
+
+		//创建随机高度
+		function randTop(){
+			return Math.random()*height + 'px';
+		}
+
+		function randAnimate(){
+			var animate = 'move'+' '+(parseInt(Math.random()*10+5)) + 's'+' infinite'+' '+ 'ease';
+			return  animate;
+		}
+		launch.addEventListener('click', function(e) {
+			var barrage = document.createElement('p');
+			barrage.innerText = text.value;
+
+			if(barrage.innerText === ''){
+				alert('弹幕为空,请输入')
+			} 
+			barrage.style.color = randColor();
+			barrage.style.position = 'absolute';
+			barrage.style.top = randTop();
+			barrage.style.animation = randAnimate();
+			barrage.style.whiteSpace = 'nowrap';
+			text.value = '';
+			box.appendChild(barrage);			
+		});
+		clear.addEventListener('click', function(e) {
+			box.innerText = ' ';
+		});
+	</script>
+</body>
+</html>

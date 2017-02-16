@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>lazy加载</title>
+	<link rel="stylesheet" href="">
+	<style>
+	*{box-sizing: border-box;}
+	ul,li{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.container{
+		max-width: 840px;
+		margin: 20px auto;
+	}
+	.container:after{
+		display: block;
+		content: "";
+		clear: both;
+	}
+	.container>li{
+		float:left;
+		padding: 10px;
+		margin: 10px 10px;
+		border-radius: 10px;
+		box-shadow: 0 1px 2px rgba(0,0,0,.6);
+		box-sizing: border-box;
+	}
+	.container li img {
+		width: 380px;
+		height: 380px;
+		background: #000;
+	}
+	</style>
+</head>
+<body>
+	<ul class="container">
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/1.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/2.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/3.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/4.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/5.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/6.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/1.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/2.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/3.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/4.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/5.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/6.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/1.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/2.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/3.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/4.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/5.jpg"></a></li>
+		<li><a href="javascript:;"><img src="./img/blank.jpg" data-src="./img/6.jpg"></a></li>
+		<!-- <p id="hello">hello</p> -->
+	</ul>
+	
+	<script type="text/javascript" src="lib/jquery.js"></script>
+	<script type="text/javascript">
+
+	function Exporsure($target,callback){
+		this.$target = $target;
+		this.callback = callback;
+		this.bind();
+		this.check();
+	}
+	Exporsure.prototype.bind = function(){
+		var  that = this;
+		$(window).on('scroll',function(){
+			that.check();
+		})
+	}
+	Exporsure.prototype.check = function(){
+		if(this.isShow(this.$target)){
+			this.callback(this.$target);
+		}
+	}
+	Exporsure.prototype.isShow = function(){
+		var windowHeight = $(window).height();
+		var scrollTop = $(window).scrollTop();
+		var offsetTop = this.$target.offset().top;
+		var elHeight = this.$target.height();
+		if(windowHeight+scrollTop>offsetTop && offsetTop< scrollTop+elHeight){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function showImg($img){
+		var imgUrl = $img.attr('data-src');
+		$img.attr('src',imgUrl);
+	}
+	var Lazy = (function(){
+		return {
+			init:function($targets,callback){
+				$targets.each(function(idx,target){
+					new Exporsure($(target),callback)
+				})
+			}
+		}
+	})()
+	Lazy.init($('.container img'), function($node){
+  		showImg($node);
+	});
+
+	Lazy.init($('#hello'),function($node){
+	 	$node.text($node.text()+'world')
+	 })
+	</script>
+</body>
+</html>

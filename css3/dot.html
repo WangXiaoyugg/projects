@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS打点</title>
+	<style type="text/css">
+	.getbtn{
+		display: inline-block;
+		/*margin: 100px auto;*/
+		padding: 15px 30px 15px 15px;
+		/*line-height: 1.5em;*/
+		background: green;
+		/*text-align: center;*/
+		border-radius: 10px;
+		border: 1px solid #eee;
+		color: #fff;
+		text-decoration: none;
+		/*font-family:"楷书";*/font-weight: bolder; 
+	}
+	.getbtn:hover{
+		color: orange;
+	}
+	.dotting{
+		display: inline-block;
+		min-width: 2px;
+		min-height: 2px;
+		box-shadow: 2px 0 currentColor,6px 0 currentColor,10px 0 currentColor;
+		-webkit-animation:dot 4s infinite step-start both; //动画一开始就跳到 100% 直到周期结束s
+		animation: dot 4s infinite step-start both;	
+		*zoom:expression(this.innerHTML='...');
+	}
+	.doting:before{content: "..."}
+	.doting::before{content: "";}
+	:root .dotting{margin-right: 8px};
+
+	@-webkit-keyframes dot{
+		25% {box-shadow: none;}
+		50%  {box-shadow: 2px 0 currentColor;}
+		75%  {box-shadow: 2px 0 currentColor,6px 0 currentColor;}
+	}
+	@keyframes dot{
+		25% {box-shadow: none;}
+		50%  {box-shadow: 2px 0 currentColor;}
+		75%  {box-shadow: 2px 0 currentColor,6px 0 currentColor;}
+	}
+	</style>
+</head>
+<body>
+	<a href="#" class="getbtn"> 订单提交中<span class=dotting></span></a>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<link href="css/style.css" rel="stylesheet">-->
+        <style>
+            div{text-align: center;margin-top: 150px}
+            #clock{border: 1px solid #ccc;}
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>canvas时钟</h1>
+            <canvas id="clock" width="300" height="300">对不起，您的浏览器不支持canvas，请升级浏览器</canvas>        
+        </div>
+<script>
+    var clock = document.getElementById('clock');
+    var ctx = clock.getContext('2d');
+    var height = ctx.canvas.height;
+    var width = ctx.canvas.width;
+    var r = width /2;
+    // console.log(ctx);
+    // console.log(ctx.canvas.width);
+    
+    //外观圆
+//     function drawBackground(){
+//         ctx.save()
+//         ctx.translate(r,r);
+//         ctx.lineWidth = 10;
+//         ctx.beginPath();
+//         ctx.arc(0,0,r-5,0,2*Math.PI,false);
+//         ctx.stroke();
+//         ctx.font = "18px Arial";
+//         ctx.textAlign = 'center';
+//         ctx.textBaseline = 'middle';
+//         var hourNumbers = [3,4,5,6,7,8,9,10,11,12,1,2];
+//         hourNumbers.forEach(function(number,i){
+//             var rad = 2*Math.PI / 12 *i;
+//             var x = Math.cos(rad) * (r-30);
+//             var y = Math.sin(rad) *(r-30);
+//             ctx.fillText(number,x,y);
+//         })
+//         for(var i=0;i<60;i++){
+//             var rad = 2*Math.PI /60 *i;
+//             var x = Math.cos(rad) * (r-18);
+//             var y = Math.sin(rad) * (r-18);
+//             ctx.beginPath();
+//             if(i%5===0){
+//                   ctx.fillStyle = '#000';  
+//             ctx.arc(x,y,3,0,2*Math.PI,false);
+           
+//             }else{
+//                  ctx.fillStyle = '#ccc';
+//             ctx.arc(x,y,3,0,2*Math.PI,false);
+         
+//             }
+//             ctx.fill();
+//         }
+//     }
+    
+//     function drawHour(hour,minute){
+//         ctx.save()
+//         ctx.beginPath();
+//         var rad = 2*Math.PI /12 *hour;
+//         var mrad = 2*Math.PI/12/60 *minute;
+//         ctx.rotate(rad+mrad);
+
+//         ctx.lineCap = 'round';
+//         ctx.lineWidth = 10;
+//         ctx.moveTo(0,10);
+//         ctx.lineTo(0, -r/2);
+//         ctx.stroke(); 
+//         ctx.restore();
+//     }
+//     function drawMinute(minute){
+//         ctx.save();
+//         ctx.beginPath();
+//         var rad = 2*Math.PI / 60 *minute;
+//         ctx.rotate(rad);
+//         ctx.lineCap = 'round';
+//         ctx.lineWidth = 5;
+//         ctx.moveTo(0,10);
+//         ctx.lineTo(0,-r+30);
+//         ctx.stroke();
+//         ctx.restore();
+//     }
+//     function drawSecond(second){
+//         ctx.save();
+//         ctx.beginPath();
+//         ctx.fillStyle= "#c14543";
+//         var rad = 2*Math.PI /60 *second;
+//         ctx.rotate(rad);
+//         ctx.moveTo(-2,20);
+//         ctx.lineTo(2,20);
+//         ctx.lineTo(1,-r+18);
+//         ctx.lineTo(-1,-r+18);
+//         ctx.fill();
+//         ctx.restore();
+//     }
+//    function drawDot(){
+//        ctx.beginPath();
+//        ctx.fillStyle="#fff";
+//        ctx.arc(0,0,5,0,2*Math.PI,false)
+//        ctx.fill();
+//    }
+//    function run (){
+//        ctx.clearRect(0,0,width,height);
+//        var now = new Date();
+//        var hour = now.getHours();
+//        var min = now.getMinutes();
+//        var sec = now.getSeconds();
+//         drawBackground();
+//         drawHour(hour,min);
+//         drawMinute(min);
+//         drawSecond(sec);
+//         drawDot();
+//         ctx.restore();
+//    }
+//    run();
+//    setInterval(run,1000)
+    // drawBackground();
+    // drawHour(4);
+    // drawMinute(40);
+    //  drawSecond(30);
+    //  drawDot();
+
+
+    var Clock = {
+        init: function (){
+           this.run();
+            
+        },
+        run: function (){
+            me = this;
+            ctx.clearRect(0,0,width,height);
+            var now = new Date();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            var sec = now.getSeconds();
+           this.drawBackground();
+            this.drawHour(hour,min);
+            this.drawMinute(min);
+            this.drawSecond(sec);
+            this.drawDot();
+           ctx.restore();
+           setInterval(function(){
+               me.run();
+           },1000);
+        },
+        drawBackground:function(){
+        ctx.save()
+        ctx.translate(r,r);
+        ctx.lineWidth = 20;
+        ctx.beginPath();
+        ctx.arc(0,0,r-10,0,2*Math.PI,false);
+        ctx.stroke();
+        ctx.font = "18px Arial";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        var hourNumbers = [3,4,5,6,7,8,9,10,11,12,1,2];
+        hourNumbers.forEach(function(number,i){
+            var rad = 2*Math.PI / 12 *i;
+            var x = Math.cos(rad) * (r-35);
+            var y = Math.sin(rad) *(r-35);
+            ctx.fillText(number,x,y);
+        });
+        for(var i=0;i<60;i++){
+            var rad = 2*Math.PI /60 *i;
+            var x = Math.cos(rad) * (r-25);
+            var y = Math.sin(rad) * (r-25);
+            ctx.beginPath();
+            if(i%5===0){
+                  ctx.fillStyle = 'green';  
+            ctx.arc(x,y,3,0,2*Math.PI,false);
+           
+            }else{
+                 ctx.fillStyle = '#ccc';
+            ctx.arc(x,y,3,0,2*Math.PI,false);
+         
+            }
+            ctx.fill();
+            }
+        },
+          drawHour:function(hour,min){
+                ctx.save()
+                ctx.beginPath();
+                var rad = 2*Math.PI /12 *hour;
+                var mrad = 2*Math.PI/12/60 *min;
+                ctx.rotate(rad+mrad);
+                ctx.lineCap = 'round';
+                ctx.lineWidth = 10;
+                ctx.moveTo(0,10);
+                ctx.lineTo(0, -r/2);
+                ctx.stroke(); 
+                ctx.restore();
+          },
+          drawMinute:function(min){
+                ctx.save();
+                ctx.beginPath();
+                var rad = 2*Math.PI / 60 *min;
+                ctx.rotate(rad);
+                ctx.lineCap = 'round';
+                ctx.lineWidth = 5;
+                ctx.moveTo(0,10);
+                ctx.lineTo(0,-r+30);
+                ctx.stroke();
+                ctx.restore();
+          },
+          drawSecond:function(sec){
+                 ctx.save();
+                ctx.beginPath();
+                ctx.fillStyle= "#c14543";
+                var rad = 2*Math.PI /60 *sec;
+                ctx.rotate(rad);
+                ctx.moveTo(-2,20);
+                ctx.lineTo(2,20);
+                ctx.lineTo(1,-r+18);
+                ctx.lineTo(-1,-r+18);
+                ctx.fill();
+                ctx.restore();
+          },
+          drawDot:function(){
+                ctx.beginPath();
+                ctx.fillStyle="#fff";
+                ctx.arc(0,0,5,0,2*Math.PI,false)
+                ctx.fill();
+          }
+        
+    }
+    Clock.init();
+</script>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "garen-weather",
+  "version": "1.0.0",
+  "description": "命令行查询本地天气",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "噶weather"
+  ],
+  "author": "garen",
+  "license": "ISC"
+}
