@@ -1,14 +1,25 @@
 {
   "name": "garen-weather",
-  "version": "1.0.0",
+  "version": "1.1.12",
   "description": "命令行查询本地天气",
   "main": "index.js",
+  "bin": {
+    "weather": "./bin/local-weather"
+   
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "噶weather"
+    "garen weather 查看天气"
   ],
   "author": "garen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.79.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WangXiaoyugg/projects"
+  }
 }

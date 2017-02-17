@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+
+console.log('Garen,为你播报天气');
+
+var request = require('request');
+
+request('http://api.jirengu.com/weather.php',function(error,response,body){
+	if(!error && response.statusCode ===200){
+		print(body)
+	}
+})
+
+function print(data){
+	var result = JSON.parse(data);
+	console.log('日期：'+result.date);
+	console.log('城市：'+result.results[0].currentCity);
+	console.log('PM指数：'+result.results[0].pm25);
+	console.log('****************\n\n');
+
+	for(var j=0;j<result.results[0].weather_data.length;j++){
+		var weatherData = result.results[0].weather_data[j];
+		console.log(weatherData.date,weatherData.weather,weatherData.wind,weatherData.temperature)
+	}
+	console.log('\n\n****************\n\n');
+	console.log('Garen,为你播报生活指数');
+	console.log('\n\n');
+	for(var j=0;j<result.results[0].index.length;j++){
+		var liveIndex= result.results[0].index[j];
+		console.log(liveIndex.title,liveIndex.zs,liveIndex.tipt,liveIndex.des)
+	}
+	
+}
