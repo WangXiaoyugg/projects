@@ -1,0 +1,263 @@
+/*基本样式*/
+
+html,body{
+    font-size:12px;
+    margin:0;
+    padding: 0;
+}
+a{text-decoration: none;}
+ul,li{list-style: none;}
+.clearfix:after{
+    display: block;
+    content:'';
+    clear:both;
+}
+/*主体样式flex布局*/
+#container {
+    display: flex;
+    position: relative;
+}
+/*底部样式*/
+#container footer{
+    position: fixed;
+    bottom:0;
+    width: 100%;
+    text-align: center;
+}
+#container footer >a{
+    font-size: 1.4rem;
+    color:#fff;
+    font-family: cursive;
+    display: block;
+    padding: 0.5rem 0.8rem;
+    background-color: #353fe4;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+#container footer > a:hover{
+    color:darkorange;
+    background: #122480;
+}
+/*aside 样式*/
+#container #aside {
+    display: flex;
+    max-height: 100vh;
+    padding: 3rem;
+    background-color: #fff;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+#container #aside .header{
+    width: 30rem;
+    display: flex;
+    align-items: center;
+    margin-left: -1rem;
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+#container #aside .header img{
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    border: 0.5rem solid #ccc;
+}
+#container #aside .header h1{
+    display: inline-block;
+    width: 10rem;
+    margin-left: 1rem;
+    font-family: cursive;
+}
+#container #aside >ul{
+    width: 25rem;
+}
+#container #aside>ul>li{
+    margin: 1rem 0;
+    text-align: left;
+    font-size: 1.6rem;
+}
+#container #aside>ul>li span:nth-child(1){
+    margin-left: -2rem;
+    margin-right: 5rem;
+    font-weight: bold;
+}
+#container #aside >ul >li span:nth-child(2) a{
+    color: #c42485;
+}
+#container #aside >ul >li span a.last{
+    margin-left: -2.8rem;
+}
+#container #aside >ul>li span:nth-child(2) a:hover{
+    text-decoration: underline;
+}
+#container #aside p {
+    margin-left: 1rem;
+    color:#a5adb0;
+    font-size: 1.5rem;
+    width: 30rem;
+    font-family: cursive;
+}
+#container #aside p span{
+    color:#000;
+    font-weight:bolder;
+}
+
+/*main的样式*/
+#container #main {
+    flex-grow: 1;
+    background-color: #060e1f;
+    padding: 5rem;
+}
+#container #main >a {
+    padding: 0.5rem;
+    color:#000;
+    background-color: #f0c567;
+    font-size: 1.4rem;
+}
+#container #main #experience{
+    margin-bottom: 3rem;
+}
+#container #main #experience >h1{
+    font-size: 3rem;
+    color: #2f77dd;
+}
+#container #main #experience img{
+    width: 25rem;
+    height:15rem;
+}
+#container #main #experience .project{
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #a5adb0;
+}
+#container #main #experience .project > .content a{
+    color:#fff;
+    font-size: 2rem;
+    transition: all 0.3s;
+}
+#container #main #experience .project > .content a:hover{
+    color:cornflowerblue;
+    text-decoration: underline;
+}
+#container #main #experience .project > .content>h3{
+    font-size: 1.6rem;
+    color:#fff;
+    margin-bottom: 1rem;
+}
+#container #main #experience .project > .content>span{
+    color:#fff;
+    font-size: 1.6rem;
+}
+#container #main #experience .project > .content >p{
+    font-size: 1.4rem;
+    color:#a5adb0;
+    line-height: 1.4rem;
+}
+#container #main #experience .project >.content >p>span{
+    color: #fb763e;
+}
+#main>h1{
+    font-size: 3rem;
+    color:coral;
+    font-family: cursive;
+}
+#main #skills{
+   width: auto;
+}
+#main #skills .content-right >h3{
+    color: #8ccf15;
+    font-size: 2rem;
+}
+#main #skills .content-left >h3{
+    color: #fe1a26;
+    font-size: 2rem;
+}
+#main #skills .content{
+    color:#a5adb0;
+    width: 100%;
+    padding: 1rem;
+}
+#main #skills .content> p{
+    font-size: 2rem;
+    text-align: justify;
+    line-height:2rem;
+}
+@media (min-width: 900px) and (max-width: 1440px) {
+    #container #main #experience .project>content{
+        float: left;
+        margin-left: 0;
+    }
+    #container #main #skills {
+        flex-direction: column;
+        padding: 0;
+        align-items: baseline;
+        margin-bottom: 2rem;
+    }
+    #contain #main #skills .content{
+        margin-left: 0;
+        border-left: 0;
+        padding-left: 0;
+        width: inherit;
+    }
+}
+@media (max-width: 900px) {
+    #container {
+        flex-direction: column;
+    }
+    #container #aside {
+        padding: 1rem;
+    }
+    #container #aside .header{
+        width: inherit;
+    }
+    #container #aside >ul>li span{
+        font-size: 1.4rem;
+    }
+    #container #aside p{
+        font-size: 1.8rem;
+        width:inherit;
+        text-align: justify;
+    }
+    #container #main{
+        padding: 0;
+    }
+    #container #main #experience{
+        padding: 2rem;
+        margin-bottom: 0;
+    }
+    #container #main #experience .project:last-child{
+        margin-bottom: 0;
+    }
+    #container #main #experience .project>.content{
+        float: none;
+        margin-left: 0;
+        width:inherit;
+        text-align: justify;
+    }
+    #container #main > h1{
+        margin-top: 0;
+        margin-left: 1rem;
+    }
+    #container #main #skills .content{
+        margin-left: 0;
+        border-left: none;
+        padding-left: 0;
+        width: inherit;
+    }
+}
+@media (max-width: 480px) {
+    #container #aside  img{
+        margin-left: 2rem;
+    }
+    #container #main #skills .content{
+        margin-left: 0;
+        border-left: none;
+        padding-left: 2rem;
+        width: inherit;
+    }
+}
+
+
+
+
+

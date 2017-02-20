@@ -1,0 +1,42 @@
+body{
+	font-family: '微软雅黑',Arial;
+}
+/*进度条*/
+.progress {
+	margin-bottom: 3px;
+}
+/*头像*/
+.wh64{
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+}
+.mt_10{margin-top: 10px;}
+.p0{padding: 0;}
+/*page-header*/
+.page-header{
+	margin-top: 0;
+}
+.page-header h1{
+	margin: 0;
+	font-size: 16px;
+}
+/*tag*/
+.tag{
+	padding-top: 15px;
+}
+.tag .alert{
+	margin: 0 15px 15px 0;
+}
+/*user_search*/
+.user_search{
+	padding:10px;
+	border: 1px solid #eee;
+	border-top: none;
+}
+/*底部样式*/
+footer{
+	text-align: center;
+	font-weight: 400;
+	padding:20px;
+}
