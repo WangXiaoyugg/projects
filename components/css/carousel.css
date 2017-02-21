@@ -1,0 +1,73 @@
+	* {
+			margin: 0;
+			padding: 0;
+			text-decoration: none;
+			list-style: none;
+		}
+		.clear:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		/*carousel*/
+		.carousel {
+			position: relative;
+			height: 200px;
+			width: 300px;
+			margin:50px auto;
+			overflow: hidden;
+		}
+		.carousel .pic-ct {
+			width: 1200px;
+			position: absolute;
+		}
+		.carousel .pic {
+			float: left;
+		}
+		.carousel .pic img {
+			width: 300px;
+			height: 200px;
+		}
+		.carousel .arrow-ct .arrow {
+			top: 85px;
+			z-index: 100;
+			background-color: rgba(0,0,0,0.4);
+			cursor: pointer;
+			height: 30px;
+			width: 30px;
+			line-height: 30px;
+			text-align: center;
+			border-radius: 30px;
+			color: white;
+		}
+		.carousel .arrow-ct .arrow:hover {
+			background-color: rgba(0,0,255,0.5);
+		}
+		.carousel .arrow-ct .left-arrow {
+			position: absolute;
+			left: 10px;
+		}
+		.carousel .arrow-ct .right-arrow {
+			position: absolute;
+			left: 260px;
+		}
+		.carousel .page-ct {
+			position: absolute;
+			top: 175px;
+		}
+		.carousel .page-ct li {
+			float: left;
+			width: 50px;
+			margin-left: 20px;
+			height: 5px;
+			border-radius: 3px;
+			background-color: rgba(0,0,0,0.4);
+			cursor: pointer;
+		}
+		.carousel .page-ct li:hover {
+			background-color: rgba(0,0,255,0.5);
+		}
+		.carousel .page-ct .active {
+			background-color: #ccc;
+		}
