@@ -158,8 +158,8 @@
 			this.$calendar = $(tpl);
 			this.$ct.append(this.$calendar);
 			var month = this.date.getMonth();
-			var footerContent = this.toFix(month)+" "+this.date.getDate()+" "+this.date.getFullYear();
-			this.$ct.find('.date-footer').text(footerContent);
+			 
+			this.$ct.find('.date-footer').text( this.toFix(month)+" "+this.date.getDate()+" "+this.date.getFullYear());
 		}
 
 		// 设置日期

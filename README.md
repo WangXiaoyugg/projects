@@ -1,3 +1,3 @@
 # projects
-This is all my works for find a job!
-I will try my best to finish four work at least
+### 准备几个作品，准备找工作，
+### 自己的进度好慢，要加快速度了。
