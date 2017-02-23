@@ -1,0 +1,251 @@
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>todolist</title>
+    <style type="text/css">
+      /*基本样式*/
+html,body,h1{
+    margin: 0;
+    padding:0;
+    font-size:10px;
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix:after{
+    content: '';
+    display: table;
+    clear:both;
+}
+
+/*公共样式*/
+section.container{
+    font-size: 1.6rem;
+    width: 80rem;
+    margin: 5rem auto;
+}
+div.newTask input{
+    display: inline-block;
+    width: 60rem;
+    height:3rem;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.5);
+    background: #ededed;
+    color:#999;
+    border:1px solid #666;
+    border-radius: 5px;
+    outline: none;
+    transition: all 0.5s;
+    font-size: 20px;
+    text-indent: 20px;
+}
+#todo .newTask input:focus {
+  width: 75rem;
+  height: 4rem;
+}
+#todo .todos .time {
+  width:16rem;
+}
+section.container span{
+    display: inline-block;
+    width:20rem;
+}
+section.container .content{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 30rem;
+    vertical-align: bottom;
+}
+
+#todo>h1{
+  text-align: center;
+  font-family: cursive;
+  font-weight: border;
+  margin:30px auto;
+  color:#3f51b5;
+  font-size: 30px;
+}
+#todo>p>span{
+  width: initial;
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bold;
+}
+/*todo样式*/
+
+section.container .todos>li{
+    vertical-align: bottom;
+    margin-left: -1.6rem;
+    position: relative;
+    margin-top:1rem;
+}
+section.container .todos>li input{
+    display: inline-block;
+}
+section.container .todos>li input:checked~span{
+    color:gray;
+}
+section.container .todos>li input:checked+span:before{
+    content:'';
+    width:82rem;
+    position: absolute;
+    top: 50%;
+    bottom:50%;
+    left:-3rem;
+}
+section.container .todos>li .time{
+    display: inline-block;
+    width: 20rem;
+}
+section.container button{
+    display: inline-block;
+    height: 30px;
+    width: 50px;
+    font-size: 14px;
+    float: right;
+    margin-right:60px;
+    background-color: #05f;
+    font-weight: bolder;
+    text-align: center;
+    color:#fff;
+    outline: none;
+    border: none;
+}
+[v-cloak] {
+    display: none;
+}
+#todo>p{
+    margin-bottom:2rem;
+}
+#todo>p .logout{
+    width:5rem;
+}
+
+
+/*初始界面*/
+section.signIn-SignUp{
+    border-radius: 5px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:25rem;
+    height: 35rem;
+    background-image: url(img/bg1.jpg);
+    transform: translate(-50%,-50%);
+    font-size:1.6rem;
+    color:#fff;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.5);
+}
+section.signIn-SignUp label{
+     display: inline-block;
+     width:12rem;
+     float: left;
+     text-align: center;
+     height:4rem;
+     line-height: 4rem;
+     border-right:.1rem solid white;
+ }
+section.signIn-SignUp label[for=login]{
+    border-right:none
+}
+section.signIn-SignUp .bar{
+    border-bottom: 1px solid white;
+}
+section.signIn-SignUp input[type=radio]{
+    display: none;
+}
+.login,.signUp{
+    padding:4rem;
+}
+.formRow input{
+    text-indent: 1rem;
+    font-family: cursive;
+    font-family: bold;
+    outline: none;
+    width:17rem;
+    background-color: white;
+    height:3.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+section.signIn-SignUp input[type=submit]{
+    width:17rem;
+    height:4rem;
+    margin-top:3rem;
+    border-radius: .5rem;
+    background: #095584;
+    border:none;
+    color:white;
+    font-size:1.6rem;
+    font-weight: bold;
+}
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <section id="signInAndSignUp" class="signIn-SignUp" v-if="!currentUser">
+        <div class="bar clearfix">
+          <label for="signUp">注册</label>
+          <input type="radio" name="type" v-model="actionType"  id="signUp"value="signUp">
+          <label for="login">登录</label>
+          <input type="radio" name="type"  v-model="actionType" id="login" value="login">
+        </div>
+        <div class="signUp" v-if="actionType=='signUp'">
+          <form @submit.prevent="signUp">
+            <div class="formRow">
+              <input type="text" v-model="formData.username" placeholder="请输入用户名...">
+            </div>
+            <div class="formRow">
+              <input type="password" v-model="formData.password" placeholder="请输入密码...">
+            </div>
+            <p>欢迎注册^-^</p>
+            <div class="formActions" >
+              <input type="submit" value="注册">
+            </div>
+          </form>
+        </div>
+        <div class="login" v-if="actionType === 'login'">
+          <form @submit.prevent="login">
+            <div class="formRow">
+              <input type="text" v-model="formData.username" placeholder="请输入用户名">
+            </div>
+            <div class="formRow">
+              <input type="password" v-model="formData.password" placeholder="请输入密码">
+            </div>
+            <p>欢迎登录^v^</p>
+            <div class="formActions">
+              <input type="submit" value="登录">
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="todo" v-if="currentUser"  class="container">
+          <h1>To Do List</h1>
+        <p>
+          <span>尊敬的 {{msg}} 客户</span>
+          <button @click="logout" class="logout">登出</button>
+        </p>
+        <div class="newTask">
+          <input type="text" v-model="newTodo" @keypress.enter="addTodo">
+        </div>
+        <ol class="todos">
+          <li v-cloak v-for="todo in todoList" class="clearfix">
+            <input type="checkbox" v-model="todo.done" >
+            <span class="content">{{ todo.title }}</span>
+
+            <span v-if="todo.done">已完成</span>
+            <span v-else>未完成</span>
+
+            <span class="time">{{todo.createdAt}}</span>
+            <button @click="removeTodo(todo)">X</button>
+          </li>
+        </ol>
+      </section>
+    </div>
+    <script src="bundle.js"></script>
+  </body>
+</html>
