@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style>
+    *{margin:0;padding:0}
+    body{background-color: #323232;
+    font-family:'微软雅黑';
+    padding:100px;}
+    img {height:200px;width:290px;}
+  </style>
+<style>
+.tab {width:300px;}
+.tab .tab-nav{height:30px;}
+.tab .tab-nav li{
+  float:left;
+  margin-right:5px;
+  background-color: #767676;
+  border-radius:3px 3px 0 0;
+  list-style:none;
+}
+
+.tab .tab-nav li a {
+  display:block;
+ height:30px;
+ padding: 0 15px;
+ line-height:30px;
+  color:#fff;
+ text-decoration:none;
+}
+.tab .tab-nav li.actived{
+  background-color:#fff;
+} 
+.tab .tab-nav li.actived a{
+  color:#777;
+}
+.tab .content-wrap{
+  background-color: #fff;
+  padding:5px;
+  height:200px;
+}
+.tab .content-wrap .content-item{
+  position: absolute;
+  height:200px;
+  display:none;
+}
+.tab .content-wrap .content-item.current{
+  display:block;
+  
+}
+</style>
+</head>
+<body>
+
+  <!-- dom结构 -->
+  <div class="js-tab tab"
+       data-config='{
+          "triggerType":"click",
+           "effect":"fade", 
+          "invoke":2,
+          "auto":1000          
+       }'>
+    <ul class="tab-nav">
+      <li class='actived'><a href="#">新闻</a></li>
+      <li><a href="#">电影</a></li>
+      <li><a href="#">娱乐</a></li>
+      <li><a href="#">科技</a></li>
+    </ul>
+    <div class="content-wrap">
+      <div class="content-item current">
+        <img src="http://pic.58pic.com/58pic/14/27/45/71r58PICmDM_1024.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w7/85/d/21.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://scimg.jb51.net/allimg/150629/14-1506291A242927.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w2/10/d/63.jpg" alt="">
+      </div>
+    </div>
+  </div>
+  
+  <div class="js-tab tab"
+       data-config=''>
+    <ul class="tab-nav">
+      <li class='actived'><a href="#">新闻</a></li>
+      <li><a href="#">电影</a></li>
+      <li><a href="#">娱乐</a></li>
+      <li><a href="#">科技</a></li>
+    </ul>
+    <div class="content-wrap">
+      <div class="content-item current">
+        <img src="http://pic.58pic.com/58pic/14/27/45/71r58PICmDM_1024.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w7/85/d/21.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://scimg.jb51.net/allimg/150629/14-1506291A242927.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w2/10/d/63.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="js-tab tab"
+       data-config='{
+          "triggerType":"click",
+           "effect":"fade", 
+          "invoke":2,
+          "auto":false          
+       }'>
+    <ul class="tab-nav">
+      <li class='actived'><a href="#">新闻</a></li>
+      <li><a href="#">电影</a></li>
+      <li><a href="#">娱乐</a></li>
+      <li><a href="#">科技</a></li>
+    </ul>
+    <div class="content-wrap">
+      <div class="content-item current">
+        <img src="http://pic.58pic.com/58pic/14/27/45/71r58PICmDM_1024.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w7/85/d/21.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://scimg.jb51.net/allimg/150629/14-1506291A242927.jpg" alt="">
+      </div>
+      <div class="content-item">
+        <img src="http://img1.3lian.com/2015/w2/10/d/63.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+//配置参数改变最终的展示结果
+//对象包相同的东西封装成组件
+//attr.data-config
+//getConfig()获取参数
+//invoke对配置参数绑定不同的事件，具体操作切换效果
+//autoplay 自动间隔把事件执行执行以下
+
+//index.html的函数调用方式
+$(function(){
+ // var tab1 = new Tab($('.js-tab').eq(0)); 
+ // Tab.init($('.js-tab'));
+  $('.js-tab').tab().css('fontSize','16px');
+})
+
+
+//tab.js
+ ;(function($){
+    
+   var Tab = function(tab){
+     var _this = this;
+     
+     //保存单个tab组件
+      this.tab = tab; 
+     //默认配置参数
+     this.config = {
+       "triggerType":"mouseover",//触发类型
+       "effect":"default", //内容切换效果
+       "invoke":2,     //默认显示第几个tab
+       "auto":false,  //是否自动切换
+     }
+     //若果配置参数存在，扩展默认的配置参数
+     if(this.getConfig()){
+       $.extend(this.config,this.getConfig())
+     }
+     
+     //保存tab标签列表和对应的内容列表
+     this.tabItems = this.tab.find('ul.tab-nav li');
+     this.contentItems = this.tab.find('div.content-wrap div.content-item');
+     
+     //保存配置参数
+     var config = this.config;
+     if(config.triggerType==='click'){
+       this.tabItems.bind(config.triggerType,function(){
+          _this.invoke($(this));
+       })
+     }else if(config.triggerType==='mouseover'||config.triggerType !=='click'){
+        this.tabItems.mouseover(function(){
+          _this.invoke($(this));
+       })
+     }
+
+     //自动切换功能，配置了时间间隔根据它切换
+     if(config.auto){
+
+      //定义全局的定时器
+      this.timer = null;
+      //定义计数器
+      this.loop = 0;
+
+      this.autoplay();
+      this.tab.hover(function(){
+        window.clearInterval(_this.timer)
+      },function(){
+        _this.autoplay()
+      })
+     }
+
+     //设置显示第几个tab;
+     if(config.invoke>1){
+      this.invoke(this.tabItems.eq(config.invoke-1));
+     }
+   }
+   Tab.prototype = {
+     //获取配置参数
+     getConfig(){
+       
+       //获取目标元素的data-config属性
+       var config = this.tab.attr('data-config')
+       
+       //确保有配置参数
+       if(config&&config !== ''){
+         return  $.parseJSON(config)
+       }else{
+         return null;
+       }
+     },
+     
+     //切换的事件驱动函数
+      invoke(currentTab){
+        var _this = this;
+        
+        /*执行选中状态，标记为白底actived
+         *切换对应的tab内容，要给句配置参数effect
+         */
+        
+        //保存tab选中的索引
+        var index = currentTab.index()
+        //tab 选中状态
+        currentTab.addClass('actived')
+                  .siblings().removeClass('actived')
+       //切换对应的内容区域
+        var effect = this.config.effect;
+        var conItems = this.contentItems;
+        if(effect === 'default' || effect !== 'fade'){
+          conItems.eq(index).addClass('current')
+                  .siblings().removeClass('current')
+        }else if(effect === 'fade'){
+           conItems.eq(index).fadeIn()
+                  .siblings().fadeOut();
+        }
+
+        //index loop 如果配置了自动切换，点击时记得把loop设置为当前tab的index;
+        if(this.config.auto){
+          this.loop = index;
+        } 
+      },
+      autoplay(){
+        var _this = this,
+            tabItems = this.tabItems, //临时保存tab列表
+            tablength = tabItems.size(),//tab的个数
+            config  = this.config;
+
+        this.timer = window.setInterval(function(){
+          _this.loop ++;
+          if(_this.loop >= tablength){
+
+            _this.loop = 0;
+
+          }
+          tabItems.eq(_this.loop).trigger(config.triggerType);
+        },config.auto)    
+      }
+   }
+
+   Tab.init = function(tabs){
+     var _this = this;
+     tabs.each(function(){
+        new _this($(this));
+     })
+   }
+   
+   //注册成jQuery插件
+   $.fn.extend({
+      tab:function(){
+        this.each(function(){
+          new Tab($(this))
+        })
+        return this
+      }
+   })
+
+   window.Tab = Tab
+ })(jQuery); 
+</script>
+</body>
+</html>
