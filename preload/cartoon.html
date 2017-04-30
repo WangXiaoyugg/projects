@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>漫画之有序加载</title>
+	<style>
+		img {width: 800px;height: 500px;}
+		.box{
+			margin-top: 50px;
+			text-align: center;
+		}
+		.btn{
+			display: inline-block;
+			height: 30px;
+			line-height: 30px;
+			border: 1px solid #ccc;
+			background-color: #fff;
+			text-decoration: none;
+			border-radius: 5px;
+			padding: 0 10px;
+			color:#777;
+		}
+		.btn:hover {
+			background: rgba(0,0,0,.6);
+			cursor: pointer;
+			color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_00003M.jpg" alt="" id="img" />
+		<p>
+			<a href="javascript:;" class='btn' data-control='prev'>上一页</a>
+			<a href="javascript:;" class='btn' data-control='next'>下一页</a>
+		</p>
+	</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/preload.js"></script>
+<script>
+	// var imgs = [
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_00107G.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0020BA.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0030F4.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0040IX.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0050MR.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0060QL.jpg',
+	// 	'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0070UF.jpg',
+	// 	''
+	// 	]
+	// var len = imgs.length;
+	// var count = 0;
+	// var index = 0;
+	// load();
+	// //有序预加载
+	// function load(){
+	// 	var imgObj = new Image();
+		
+	// 	$(imgObj).on('load error',function(){
+	// 		if(count >= len){
+	// 			//所有图片加载完毕
+	// 		}else{
+	// 			load();
+	// 		}
+	// 		count++;
+
+	// 	})
+	// 	imgObj.src = imgs[count]
+	// }
+
+	// $('.btn').on('click',function(){
+	// 	if($(this).data('control') === 'prev'){
+	// 			// index--;
+	// 			// if(index < 0){
+	// 			// 	index = 0
+	// 			// }
+
+	// 			index =	Math.max(0,--index);	
+	// 		}else{
+	// 			index = Math.min(len-1,++index);
+	// 		}
+	// 		document.title= (index +1)+'/'+len;
+	// 		$('#img').attr('src',imgs[index]);
+	// 	})
+	
+
+		var imgs = [
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_00003M.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_00107G.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0020BA.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0030F4.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0040IX.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0050MR.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0060QL.jpg',
+		'http://n.1whour.com/comic/kuku2comic/20090803/haizw/Vol_02/comic.kukudm.com.ONE_PIECE_02_0070UF.jpg'
+		]
+	var len = imgs.length;
+	var index = 0;
+	
+	$.preload(imgs,{
+		order:'ordered'
+	})
+
+	$('.btn').on('click',function(){
+		if($(this).data('control') === 'prev'){
+				// index--;
+				// if(index < 0){
+				// 	index = 0
+				// }
+
+				index =	Math.max(0,--index);	
+			}else{
+				index = Math.min(len-1,++index);
+			}
+			document.title= (index +1)+'/'+len;
+			$('#img').attr('src',imgs[index]);
+		})    
+</script>
+</body>
+</html>
