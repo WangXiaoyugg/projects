@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<style id="jsbin-css">
+body{
+  padding:100px 200px;
+}
+.popover {
+  border:1px solid #767676;
+  position: absolute;
+  display:inline-block;
+  transform:translate(-29px,-23px);
+  /* x = -(button.width/2 + self.width/2)
+     y = (button.height)
+  */
+  white-space:nowrap;
+  background: #fff;
+  margin-top: -5px;
+  border-radius:3px;
+  padding:.5em 1em;
+}
+.popover:after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:0;
+    border:4px solid transparent;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    border-top-color:#FFF;
+  }
+
+.popover:before{
+    content:'';
+    position: absolute;
+    width:0;
+    height:0;
+    border:5px solid transparent;
+    top:100%;
+    left:50%;
+    transform:translateX(-50%);
+    border-top-color:#767676;
+  }
+  #xxx{
+    background: rgb(234, 9, 9);
+    border-radius: 5px;
+    padding: .3em 1em;
+    color:#fff;
+    outline: none;
+    font-size: 16px;
+    font-family: fantasy;
+  }
+</style>
+</head>
+<body>
+<button id=xxx>点我</button>
+ 
+<script id="jsbin-javascript">
+window.popover = function(options){
+  
+  let {element,content} = options;
+  let $element = $(element);
+  let $popover;
+  show();
+  $element.on('click',function(){
+    if($popover){
+      $popover.remove()
+      $popover = null
+    }else{
+      show(); 
+    }
+     
+  })
+  
+  function show(){
+      let width = $element.outerWidth()
+      let height = $element.outerHeight()
+      $popover = $('<div class="popover"></div>')
+         .text(content)
+         .insertAfter($element)
+      
+      let selfwidth = $popover.outerWidth();
+      let x = -(width/2 + selfwidth/2)
+//       let y = -(height)
+      $popover.css({
+        transform:`translate(${x}px,-100%)`
+      })
+  }
+  
+  return undefined;
+}
+
+ //api 设计
+    
+popover({
+  element:'#xxx',
+  content:'hi,HELLO WORLD,GAREN WANG'
+//   trigger:'click'//mouse,touch
+})
+</script>
+</body>
+</html>
