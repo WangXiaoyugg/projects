@@ -1,0 +1,107 @@
+/*css reset*/
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+ul,ol{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color:inherit;
+}
+img {
+	max-width: 100%;
+}
+
+/*page styles*/
+
+section.summary{
+	height: 100vh;
+	background: #f2f2f2;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	flex-direction:column;
+}
+section.summary img.avatar {
+	width: 128px;
+	height: 128px;
+	border-radius: 50%;
+	display: block;
+	box-shadow: 2px 3px 4px rgba(0,0,0,.8);
+}
+section.summary .wrapper{
+	line-height: 1.5;
+	text-align: center;
+}
+
+section.works {
+	height: 100vh;
+	background: rgb(244,244,244);
+	display: flex;
+	flex-direction:column;
+	justify-content: center;
+	align-items: center;
+}
+section.works img{
+	max-width: 200px;
+}
+section.works .imgwrapper{
+	padding: 10px;
+	background: #fff;
+	text-align: right;
+}
+section.works>ul{
+	display: flex;
+	flex-wrap:wrap;
+	max-width: 700px;
+	justify-content: space-between;
+}
+section.works>ul h3{
+	font-weight: normal;
+	font-size: 16px;
+	padding-left: 10px;
+	margin: 8px 0;
+}
+
+section.works > h2 {
+	font-size: 2.2em;
+	margin-bottom: 1em; 
+}
+
+@media (max-width:420px){
+	section.works{
+		height: auto;
+		min-height:100vh; 
+		padding: 1em;
+	}
+	section.works>ul{
+		justify-content: center;
+	}
+}
+
+section.contacts{
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	line-height: 2;
+}
+section.contacts >dl{
+	display: flex;
+	flex-wrap:wrap;
+	width: 20em;
+}
+section.contacts >dl a{
+	text-decoration: underline;
+}
+
+section.contacts >dl>dt{
+	width: 3em;
+}
+section.contacts >dl>dd{
+	width: 17em;
+}
