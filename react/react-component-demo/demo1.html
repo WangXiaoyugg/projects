@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react component demo1</title>
+</head>
+<body>
+	<div class="demo"></div>
+
+
+	<script src='react.js'></script>
+	<script src='react-dom.js'></script>
+	<script src='babel.min.js'></script>
+	<script type="text/babel">
+		class Demo extends React.Component{
+			render(){
+				return  <h1>Hello React Demo!</h1>
+			}
+		}
+
+		ReactDOM.render(
+			<Demo/>,
+			document.getElementsByClassName('demo')[0]
+		)
+	</script>
+
+</body>
+</html>
