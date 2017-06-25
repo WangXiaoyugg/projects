@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	// document.getElementById('elementId');
+	// $('elementId');
+	// $('#elementId');
+	// Y.one('#elementId');
+	// dojo.byId('elementId');
+	// Ext.getDom('elementId');
+
+	//XPath/Css选择获得元素
+	// document.querySelectorAll('selectors');
+	// $$('selectors')
+	// someRootElement.select('selectors')
+	// $('selectors');
+	// Y.all('selectors');
+	// dojo.query('selectors');
+	// Ext.query('selectors');
+
+	//设置元素的样式
+	$(el).css('prop','value')
+	$(el).css({'prop':'value','prop2':'value2'})
+
+	//获取元素的样式
+	$(el).css('prop');
+
+	//更新元素的内容
+	$(el).html('<h1>hello jquery</h1>')
+	$(el).text('hello world')
+
+	//向元素中注入其他的内容
+	$(el).before('<p>this get before the el</p>')
+	$(el).prepend('<p>this get at top</p>')
+	$(el).append('<p>this get at bottom</p>')
+	$(el).after('<p>this get after the el</p>')
+
+	//在dom加载完成后运行脚本
+	//ui闪烁，js无关的UI设置可见
+	//js相关的UI设置为隐藏
+
+	//加载时运行指定的脚本
+	$(fx);
+
+	//在某个元素上监听某个事件
+	$('el').bind('event',handlerFx)
+
+	//在多个元素上监听某个事件
+	$(els).bind('event',handlerFx);
+
+	//停止监听
+	$(elOrSelector).unbind('event',handlerFx);
+
+	//submit focus blue 不会冒泡，无法事件委托
+	//事件代理
+	$('a.toggler','#items').live('click',handlerFx);
+
+	//自定义事件
+	$(elOrSelector).bind('event',handlerFx);
+	//触发自定义事件 
+	$(elOrSelector).trigger('event');
+	$(elOrSelector).trigger('event',{foo:'bar',baz:42});
+	$(elOrSelector).trigger('event',['bar',42]);
+
+	//调度及停止代码的执行
+	var handle = window.setTimeout(callback,intervalInmS)
+	window.clearTimeout(handle);
+
+	//用户切换后台处理
+	var chunk_INTERVAL = 25;
+	var running = false,progress= 0,progressTimer;
+	function runChunk(){
+		window.clearTimeout(progressTimer);
+		progressTimer = null;
+		if(!running){
+			return false;
+		}
+
+		for(var i=0;i<10000;i+=(Math.random()*5).round()){
+			++progress;
+			updateUI();
+			if(progress<100){
+				progressTimer = window.setTimeout(runChunk,chunk_INTERVAL)
+			}else{
+				progress=0;running=false;;
+			}
+		}
+	}
+
+	function toggleProcessing(){
+		running = !running;
+		if(running){
+			progressTimer = window.setTimeout(runChunk,chunk_INTERVAL)
+		}
+	}
+
+</script>	
+</body>
+</html>
