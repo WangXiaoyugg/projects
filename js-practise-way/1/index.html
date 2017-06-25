@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo1</title>
+</head>
+<body>
+
+<script type="text/javascript">
+//伪代码
+	// if(condition){
+	// 	myObj.method1(someargs)
+	// }else {
+	// 	myObj.method2(someargs)
+	// }
+
+	// //[]动态的选择方法和属性
+	// obj['key']==obj.key;
+	// //array.0 非法；
+
+	// obj['name']=> obj.name;
+	// obj['method'](arg1) => obj.methode(arg1)
+
+	// element[shouldVisible ? 'show':'hide']()
+
+	// element[isIE ? 'simpleEffect':'complexEffect']()
+
+	// element[(enable ? 'add':'remove')+'className']('enabled')
+
+
+	// var love = {
+	// 	firstName:'Elodie',
+	// 	lastName:'Porteneuve'
+	// }
+	// var useFirstName = true;
+	// console.log(love[useFirstName ?'firstName':'lastName'])
+
+	//伪代码
+	// function myFunctionName(){}
+
+	// (function(){
+	// 	var privateField = 43;
+	// 	function innerFunction(){
+	// 		notSoprivate = 44;
+	// 		return notSoprivate;
+	// 	}
+	// 	console.log('privateField',privateField);//43
+	// 	innerFunction();//44;
+	// 	console.log('notSoprivate',notSoprivate)
+
+	// })()
+	// console.log('privateField',typeof privateField);
+	// console.log('notSoprivate',notSoprivate);//变量通过return泄露到外部
+
+	// var obj = (function(){
+	// 	var privateField = 40;
+	// 	var publicField ='foobar';
+	// 	function processInternals(){
+	// 		console.log('Internal stuff : '+ privateField);
+	// 	}
+
+	// 	function run(){
+	// 		processInternals();
+	// 		console.log('Still private stuff: '+privateField);
+	// 		console.log('public stuff :' + publicField);
+	// 	}
+
+	// 	return {
+	// 		publicField:publicField,
+	// 		run :run
+	// 	}
+	// })()
+
+	// obj.run();
+	// console.log(obj.publicField);
+	// obj.processInternals();//报错
+	// console.log(obj.privateField);
+	
+	// undefined === null;
+	// undefined == null;
+
+	// rant = rant || 'IE6 MUST DIE!';
+
+	//声明参数
+	// function repeat(rant,times){
+	// 	while(--times >= 0){
+	// 		console.log(rant)
+	// 	}
+	// }
+	// repeat('IE6 must die!',5)
+
+	//动态获得不定量的参数
+	// function repeat(times){
+	// 	while(--times >= 0){
+	// 		for(var index=0,len=arguments.length;index <len;index++){
+	// 			console.log(arguments[index])
+	// 		}			
+	// 	}
+	// }
+
+	// repeat(2,'IE MUST DIE!','So should IE fuck!')
+
+	//为参数设置默认值
+	// function repeat(times,rant){
+	// 	if(undefined === rant){
+	// 		rant = 'IE MUST DIE'
+	// 	}
+	// 	while(--times >=0){
+	// 		console.log(rant)
+	// 	}
+	// }
+	// repeat(3);
+	// repeat(3,'So should IE7...');
+	
+	//字面量对象实现伪命名参数
+	function repeat(options){
+		options = options || {};
+		for(var opt in (repeat.defaultOptions || {})){
+			if(!(opt in options)){
+				options[opt] = repeat.defaultOptions[opt];
+			}
+		}
+
+		for(var index=0;index<options.times;index++){
+			console.log(options.rant)
+		}
+	}
+	repeat.defaultOptions = {times:2,rant:'IE MUST DIE'}
+
+	repeat()
+	repeat({times:3})
+	repeat({times:2,rant:'FLASH MUST DIE!'})		
+</script>
+</body>
+</html>
