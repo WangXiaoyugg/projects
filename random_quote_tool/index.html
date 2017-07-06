@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>随机语言生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+        
+        body {
+            background: #d3d3d3;
+        }
+        
+        h1 {
+            margin: 20px auto;
+            color: #fff;
+            text-align: center;
+        }
+        
+        div {
+            background: #fff;
+            width: 600px;
+            margin: 0 auto;
+        }
+        
+        .wrapper p {
+            padding: 20px 10px;
+            color: #030000;
+            text-align: center;
+        }
+        
+        input {
+            display: inline-block;
+            padding: 10px;
+            background: #222222;
+            color: #fff;
+            border: none;
+            margin-left: 45%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>随机语言生成器</h1>
+    <div class="wrapper">
+        <p id="quote">今日不努力，老大徒伤悲</p>
+        <p>王晓雨</p>
+        <input type="button" id="btn" value="下一个">
+    </div>
+    <script>
+        var arr = [
+            "欲穷千里目，更上一层楼",
+            "生活不止眼前的苟且，还有诗和远方和田野",
+            "采菊东篱下，悠然见南山",
+            "月有阴晴圆缺，此时古难全",
+            "少壮不努力，老大徒伤悲"
+        ]
+
+        var btn = document.getElementById('btn')
+        var quote = document.getElementById('quote')
+        btn.onclick = function(e) {
+            var random = Math.floor(Math.random()*arr.length);
+            quote.innerText = arr[random];
+        }
+    </script>
+</body>
+
+</html>
