@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒計時</title>
+	<style>
+		*{margin:0;padding: 0;box-sizing: border-box;}
+		.timer-ct{
+			margin: 20px auto;
+			background: #e2e2e2;
+			width: 400px;
+			padding: 20px 30px;
+		}
+		.timer-ct h2{
+			color:orange;
+			margin-bottom: 20px;
+		}
+		.timer-ct span{
+			display: inline-block;
+			padding: 10px 20px;
+			color:#fff;
+			background: #f01146;
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="timer-ct">
+		<h2>倒計時</h2>
+		<span id="hour"></span>
+		<span id="min"></span>
+		<span id="sec"></span>
+	</div>
+	<script>
+		var clock = (function () {
+			
+			_self = this;
+
+			this.setEndDate = function(hour_min_sec){
+				var date = new Date();
+				var year_month_date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+				var endDate = year_month_date+' '+hour_min_sec
+				localStorage.setItem('endDate',endDate)
+			}
+
+			this.getEndDate = function(){
+				return localStorage.getItem('endDate')
+			}
+
+			this.start = function(domH,domM,domS){	
+					
+				setTimeout(function(){
+					var __callee = arguments.callee;
+							var date = _self.cal()
+							domH.innerText = date.hour+ '時'
+							domM.innerText = date.min + '分'
+							domS.innerText = date.sec + '秒'
+					setTimeout(__callee,1000)
+				},1000)	
+			}
+
+			this.cal = function(){
+				var curDate = new Date()
+				var diff = new Date(this.getEndDate()) - curDate
+				var hour = Math.floor(diff/(1000*60*60)) < 10 ? '0'+ Math.floor(diff/(1000*60*60)): Math.floor(diff/(1000*60*60));
+				var min  = Math.floor((diff - hour*1000*60*60)/(1000*60) )< 10 ? '0'+Math.floor((diff - hour*1000*60*60)/(1000*60) ):Math.floor((diff - hour*1000*60*60)/(1000*60) );
+				var sec  = Math.floor((diff - hour*1000*60*60 - min*1000*60 )/1000)<10 ? '0'+Math.floor((diff - hour*1000*60*60 - min*1000*60 )/1000) :Math.floor((diff - hour*1000*60*60 - min*1000*60 )/1000) ;
+
+				return {hour:hour,min:min,sec:sec}
+
+			}
+
+			return {
+				setEndDate:this.setEndDate,
+				start:this.start
+			}
+		})()
+		clock.setEndDate('20:00:00')
+		var hour = document.getElementById('hour')
+		var min = document.getElementById('min')
+		var sec = document.getElementById('sec')
+		clock.start(hour,min,sec)
+	</script>
+</body>
+</html>
