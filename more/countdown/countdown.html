@@ -42,6 +42,7 @@
 				var year_month_date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
 				var endDate = year_month_date+' '+hour_min_sec
 				localStorage.setItem('endDate',endDate)
+				return this;
 			}
 
 			this.getEndDate = function(){
@@ -76,11 +77,10 @@
 				start:this.start
 			}
 		})()
-		clock.setEndDate('20:00:00')
 		var hour = document.getElementById('hour')
 		var min = document.getElementById('min')
 		var sec = document.getElementById('sec')
-		clock.start(hour,min,sec)
+		clock.setEndDate('20:00:00').start(hour,min,sec)
 	</script>
 </body>
 </html>
