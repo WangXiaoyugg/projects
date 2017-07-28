@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react component demo3</title>
+</head>
+<body>
+	<div class="demo"></div>
+
+	<script src='react.js'></script>
+	<script src='react-dom.js'></script>
+	<script src='babel.min.js'></script>
+	<script type="text/babel">
+		class Demo extends React.Component{
+			constructor(...args){
+				super(...args)
+				this.state = {
+					name:'你好，世界'
+				}
+			}
+
+			handleChange(e){
+				let name = e.target.value;
+				this.setState({
+					name:name
+				})
+			}
+
+			render(){
+				return <div>
+				<input type='text' onChange={this.handleChange.bind(this)} />
+				<p>你好，{this.state.name}</p>
+				</div>
+			}
+		}
+
+		ReactDOM.render(
+			<Demo color="orange" />,
+			document.getElementsByClassName('demo')[0]
+		)
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>game 1</title>
+<style >
+	canvas {
+		border:1px solid;
+	}
+</style>
+</head>
+<body>
+<canvas id="id-canvas" width="400" height="300"></canvas>
+<script>
+//bad code
+var log = console.log.bind(console)
+
+//获取元素
+var canvas = document.querySelector('#id-canvas')	
+var context = canvas.getContext('2d') 
+
+var x = 100;
+var y = 200;
+
+var leftDown = false
+var rightDown = false
+
+var speed = 5;
+
+//画一张图片
+var img = new Image()
+img.src = './paddle.png'
+log(img)
+img.onload = function (){
+	context.drawImage(img,x,y)
+}
+
+//events
+window.addEventListener('keydown',function(e){
+	var k = e.key;
+	
+	if(k == 'a'){
+		leftDown = true
+		
+	}else if(k == 'd'){
+		rightDown = true		
+	}
+})
+
+window.addEventListener('keyup',function(e){
+	var k = e.key;
+	
+	if(k == 'a'){
+		leftDown = false
+		
+	}else if(k == 'd'){
+		rightDown = false	
+	}
+})
+
+
+setInterval(function(){
+	//update x 
+	//判断x是否触碰边界值 0 未做
+	if(leftDown){
+		x -= speed
+	}else if(rightDown){
+		x += speed
+	}
+
+	//draw
+	context.clearRect(0,0,canvas.width,canvas.height)
+	context.drawImage(img,x,y)
+},1000/60)
+</script>
+</body>
+</html>

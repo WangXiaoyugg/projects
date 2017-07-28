@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>game 1</title>
+<style >
+	*{margin: 0;padding: 0;}
+	body{
+		background: orange;
+	}
+	div.canvas{
+		width: 400px;
+		margin:0 auto;
+	}
+	canvas {
+		border:1px solid #fff;
+	}
+	h1,p{color:#fff;text-align: center;margin-bottom: 20px;}
+</style>
+</head>
+<body>
+<h1>打砖块简版</h1>
+<p>按 f 启动游戏，a左移挡板 d右移挡板</p>
+<div class="canvas">
+	<canvas id="id-canvas" width="400" height="300"></canvas>
+</div>
+
+<script>
+//good code
+var log = console.log.bind(console)
+
+var imageFromPath = function(path){
+	var img = new Image();
+	img.src = path;
+	return img
+}
+
+var Paddle = function(){
+	var image = imageFromPath('./paddle.png')
+	var  obj = {
+		img: image,
+		x:100,
+		y:250,
+		speed:15,
+	}
+	obj.moveLeft = function(){
+		if(obj.x < 0){
+			return false;
+		}
+		obj.x -= obj.speed
+	}
+	obj.moveRight = function(){
+		if(obj.x + obj.img.width > 400){
+			return false;
+		}
+		obj.x += obj.speed
+	}
+	//判断矩形相交
+	obj.collide = function(ball){
+		if(ball.y+ ball.img.height > obj.y){
+			if(ball.x > obj.x && ball.x < obj.x + obj.img.width){
+				log('相撞了');
+				return true;
+			}
+		}
+		return false;
+	}
+
+	return obj
+}
+
+var Ball = function(){
+	var image = imageFromPath('./ball.png')
+	var  obj = {
+		img: image,
+		x:100,
+		y:100,
+		speedX:10,
+		speedY:10,
+		fired:false
+	}
+	obj.fire = function(){
+		obj.fired = true
+	}
+
+	obj.move = function(){
+		if(obj.fired){
+			//边界为obj.x + ball.width >400
+			//边界为obj.x + ball.height >300
+			if(obj.x <0 ||  obj.x + obj.img.width > 400){
+				obj.speedX = -obj.speedX
+			}
+			if(obj.y <0 ||  obj.y + obj.img.height > 300){
+				obj.speedY = -obj.speedY
+			}
+
+			obj.x += obj.speedX	
+			obj.y += obj.speedY
+		}
+	}
+	return obj
+}
+
+
+var WangGame = function(){
+	var g = {
+		actions:{},
+		keydowns:{},
+	}
+	var canvas = document.querySelector('#id-canvas')	
+	var context = canvas.getContext('2d')
+
+	g.canvas = canvas;
+	g.context = context;
+	//draw
+	g.drawImage = function(WangImage){
+		g.context.drawImage(WangImage.img,WangImage.x,WangImage.y)
+	}
+
+	//events 注册
+	window.addEventListener('keydown',function(e){
+		g.keydowns[e.key] = true
+	})
+
+	window.addEventListener('keyup',function(e){
+		g.keydowns[e.key] = false
+	})
+
+	g.registerAction = function(key,callback){  
+		g.actions[key] = callback;
+	}
+
+	//timer
+	setInterval(function(){
+		var actions = Object.keys(g.actions)
+		for(var i = 0;i<actions.length;i++){
+			var key = actions[i]
+			if(g.keydowns[key]){
+
+				g.actions[key]()
+			}
+		}
+
+		//update
+		g.update()
+		//clear
+		context.clearRect(0,0,canvas.width,canvas.height)
+		//draw
+		g.draw()
+	},1000/30) 
+
+	return g;
+}
+
+var __main = function(){
+	var game = WangGame();
+
+	var paddle = Paddle();
+	var ball = Ball();
+
+	game.registerAction('a',function(){
+		paddle.moveLeft()
+	})
+
+	game.registerAction('d',function(){
+		paddle.moveRight()
+	})
+
+	game.registerAction('f',function(){
+		ball.fire()
+	})
+
+	game.update = function(){
+		ball.move();
+
+		if(paddle.collide(ball)){
+			ball.speedY *= -1;
+		}
+	}
+
+	game.draw = function(){
+		game.drawImage(paddle)
+		game.drawImage(ball)
+	}
+
+
+}
+
+__main();
+</script>
+</body>
+</html>

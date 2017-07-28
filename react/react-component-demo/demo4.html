@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>react component demo3</title>
+</head>
+<body>
+	<div class="demo"></div>
+
+	<script src='react.js'></script>
+	<script src='react-dom.js'></script>
+	<script src='babel.min.js'></script>
+	<script type="text/babel">
+		class Demo extends React.Component{
+			constructor(...args){
+				super(...args)
+				this.state = {
+					text:'React',
+					isClicked:false
+				}
+			}
+
+			handleClick(){
+				let date = new Date();
+      			let isClicked = !this.state.isClicked;
+      			let curDate = date.getFullYear()+'年'+ (date.getMonth()+1)+'月'+date.getDate()+'日';
+      			this.setState({
+        			isClicked:isClicked,
+        			text: isClicked ? 'React': curDate
+      			});
+			}
+
+			render(){
+				return <p onClick={this.handleClick.bind(this)}>
+					你好，{this.state.text}
+					</p>
+			}
+		}
+
+		ReactDOM.render(
+			<Demo />,
+			document.getElementsByClassName('demo')[0]
+		)
+	</script>
+
+</body>
+</html>

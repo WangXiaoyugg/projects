@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手机画图</title>
+<style>
+	*{margin:0;padding: 0}
+	ul{
+		list-style: none;
+		padding: 0;
+		border:2px solid green;
+		margin:0;
+	}
+	#app{
+		height: 100vh;
+		background: #ddd;
+	}
+	
+</style>
+</head>
+<body>
+	<div id="app"></div>
+	<script>
+	var app = document.querySelector('#app');
+	app.addEventListener('touchstart', function(e) {
+		console.log('开始摸了')
+	});
+	app.addEventListener('touchmove', function(e) {
+		console.log('开始动了')
+	});
+	app.addEventListener('touchend', function(e) {
+		console.log('开始结束了')
+	});
+	</script>
+</body>
+</html>

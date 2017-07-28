@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手机画图</title>
+<style>
+	*{margin:0;padding: 0}
+	ul{
+		list-style: none;
+		padding: 0;
+		border:2px solid green;
+		margin:0;
+	}
+	#app{
+		height: 100vh;
+		background: #ddd;
+		display: block;
+		vertical-align: top;
+	}
+	
+</style>
+</head>
+<body>
+	<!-- <div id="app"></div> -->
+	<canvas id="app" ></canvas>
+	
+	<script>
+	var canvas = document.getElementById('app')
+	var context = canvas.getContext('2d')
+
+	var clientWidth = document.documentElement.clientWidth
+	var clientHeight = document.documentElement.clientHeight
+	canvas.width = clientWidth
+	canvas.height = clientHeight
+
+		
+	let previousPoint
+	canvas.addEventListener('touchmove', function(e) {
+		let {pageX,pageY} = e.touches[0]
+		console.log(pageX,pageY)
+		context.fillRect(pageX,pageY,10,10)
+		
+
+		if(previousPoint){
+			context.strokeStyle = 'green'
+			context.beginPath()
+			context.moveTo(previousPoint.pageX,previousPoint.pageY) //移动到上一个点
+			context.lineTo(pageX,pageY) //画线到这一个点
+			context.stroke()	
+		}
+
+		previousPoint = {
+			pageX,pageY
+		}			
+	});	
+	</script>
+	<script>
+	// var app = document.querySelector('#app');
+	// app.addEventListener('touchstart', function(e) {
+	// 	console.log('开始摸了')
+	// 	// console.log(e.touches[0].clientX,e.touches[0].clientY)
+	// 	// let {pageX,pageY} = e.touches[0];
+
+	// 	// // var clientX = e.touches[0].clientX
+	// 	// // var clientY = e.touches[0].clientY
+		
+	// 	// var div = document.createElement('div')
+	// 	// div.style.position = 'absolute'
+	// 	// div.style.top = pageX +'px'
+	// 	// div.style.left = pageY + 'px'
+	// 	// div.style.width = '10px'
+	// 	// div.style.height = '10px'
+	// 	// div.style.borderRadius = '5px'
+	// 	// div.style.background = 'red'
+	// 	// document.body.appendChild(div);
+	// });
+
+	// //触发的不是很快
+	// app.addEventListener('touchmove', function(e) {
+	// 	console.log('开始动了')
+	// 	let {pageX,pageY} = e.touches[0];
+
+	// 	// var clientX = e.touches[0].clientX
+	// 	// var clientY = e.touches[0].clientY
+		
+	// 	var div = document.createElement('div')
+	// 	div.style.position = 'absolute'
+	// 	div.style.top = pageX +'px'
+	// 	div.style.left = pageY + 'px'
+	// 	div.style.width = '4px'
+	// 	div.style.height = '4px'
+	// 	div.style.borderRadius = '5px'
+	// 	div.style.background = 'red'
+	// 	document.body.appendChild(div);
+	// });
+	// app.addEventListener('touchend', function(e) {
+	// 	console.log('开始结束了')
+	// });
+	</script>
+</body>
+</html>

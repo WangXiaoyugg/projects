@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>手机画图</title>
+<style>
+	ul{
+		list-style: none;
+		padding: 0;
+		border:2px solid green;
+		margin:0;
+	}
+	li::after{
+		content: '';
+		display: block;
+		clear: both;
+	}
+	li{
+		float: left;
+		width: 25%;
+		outline: 2px solid red;
+	}
+	div{
+		background: #ddd;
+		font-size: 40px;
+	}
+</style>
+</head>
+<body>
+	<ul>
+		<li>选项1</li>
+		<li>选项2</li>
+		<li>选项3</li>
+		<li>选项4 </li>
+	</ul>
+	<div>
+		<a href="http://baidu.com">Baidu</a>
+	</div>
+	<script>
+		//fastclick 300ms的延迟 fastclick.js
+		//在用户touchstart后立即触发click
+		var a = document.querySelector('a');
+		a.addEventListener('touchstart', function(e) {
+			a.click()
+		});
+		a.addEventListener('click', function(e) {
+			e.preventDefault()//阻止默认事件
+			alert(1)
+		});
+
+		//移动端有touch事件、横屏事件
+		//
+
+	</script>
+</body>
+</html>
