@@ -61,4 +61,4 @@
 //head -n 2 a.js //显示头部前两行
 //tail -n 2 a.js //显示头部后两行
 //grep '2' a.js  //搜索2 在 a.js
-// 
+ 
