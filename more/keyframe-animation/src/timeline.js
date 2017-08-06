@@ -14,9 +14,9 @@ var STATE_STOP = 2;
 
 var requestAnimationFrame =(function(){
 	return window.requestAnimationFrame ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
+			window.webkit ||
+			window.moz ||
+			window.o ||
 			function (callback){
 				return window.setTimeout(callback,callback.interval || DEFAULT_INTERVAL)
 			}
@@ -28,7 +28,7 @@ var cancelAnimationFrame = (function(){
 			window.mozCancelAnimationFrame ||
 			window.oCancelAnimationFrame ||
 			function(id){
-				return window.clearTimeout(id);
+				window.clearTimeout(id);
 			}
 })()
 
@@ -105,8 +105,7 @@ Timeline.prototype.restart = function(){
  *@param timeline 时间轴实例
  *@param startTime 动画开始时间轴
  */
-
-Timeline.prototype.startTimeline = function(timeline,startTime){
+ function startTimeline (timeline,startTime){
 
 	timeline.startTime = startTime;
 	nextTick.interval = timeline.interval;

@@ -29,9 +29,7 @@ function loadImage(images,callback,timeout){
 		var item = images[key]
 
 		if(typeof item === 'string'){
-			item = images[key] = {
-				src: item
-			};
+			item = images[key] = {src: item};
 		}
 
 		//如果格式不满足期望，则丢弃此条数据进行下一次遍历
@@ -69,7 +67,7 @@ function loadImage(images,callback,timeout){
 
 		//定义图片加载成功的函数
 		img.onload = function(){
-			success = success && true;
+			success = success & true;
 			item.status = 'loaded';
 			done()
 		}
@@ -93,7 +91,7 @@ function loadImage(images,callback,timeout){
 			try {
 				delete window[item.id]
 			} catch(e) {
-
+				console.log(e)
 			}
 
 			//每张图片加载完成，计数器减一，

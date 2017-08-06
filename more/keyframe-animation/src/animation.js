@@ -15,7 +15,10 @@ var TASK_SYNC = 0
 
 var TASK_ASYNC = 1
 
-//
+/**
+ * 简单的函数封装，执行callback
+ * @param callback 执行的函数
+ */
 
 function next(callback){
 	callback && callback();
@@ -27,9 +30,9 @@ function next(callback){
  */
 function Animation(){
 	this.taskQueue = [];
+	this.timeline = new Timeline();
 	this.index = 0 ;
 	this.state = STATE_INITAL;
-	this.timeline = new Timeline();
 }
 
 /*
@@ -38,11 +41,10 @@ function Animation(){
  */
 Animation.prototype.loadImage = function (imglist){
    var taskFn = function(next){
-   		loadImage(imglist.slice(),next);
-   		var type = TASK_SYNC
-
-   		return	this._add(taskFn,type)
+   		loadImage(imglist.slice(),next);	
    }
+   var type = TASK_SYNC
+   return this._add(taskFn,type)
 }
 
 /*
@@ -56,19 +58,19 @@ Animation.prototype.changePosition = function(elem,positions,imageUrl){
 	var len = positions.length;
 	var taskFn ;
 	var type;
-	if(!len){
+	if(len){
 		var me = this;
 		taskFn = function(next,time){
 			if(imageUrl){
 				elem.style.backgroundImage = 'url('+ imageUrl +')'
 			}
 
-			var index = Math.min(time/me.interval|0,len -1)
-			var position = positions[index].split(' ')
+			var index = Math.min(time/me.interval|0,len -1); //  time / this.interval | 0 相当于 Math.floor(time / this.interval);  但是效率更好
+			var position = positions[index-1].split(' ')
 
 			elem.style.backgroundPosition = position[0]+'px '+position[1]+'px';
 
-			if(index == len - 1){
+			if(index == len){
 				next()
 			}
 		}
@@ -94,8 +96,8 @@ Animation.prototype.changeSrc = function(elem,imglist){
 	if(len){
 		var me = this;
 		taskFn = function(next,time){
-			var index = Math.min(time/me.interval|0,len -1);
-			elem.src = imglist[index]
+			var index = Math.min(time/me.interval|0,len);
+			elem.src = imglist[index -  1]
 			if(index === len - 1){
 				next()
 			}
@@ -175,7 +177,7 @@ Animation.prototype.repeat = function(times){
 			me._runTask();
 		}else{
 			//达到了重复的次数，跳转到下一个任务
-			var task = me._taskQueue[me.index];
+			var task = me.taskQueue[me.index];
 			me._next(task)
 		}
 	}
@@ -200,7 +202,7 @@ Animation.prototype.repeatForever = function(){
 
 Animation.prototype.wait = function(time){
 	if(this.taskQueue && this.taskQueue.length >0){
-		this.taskQueue[this.taskQueue -1].wait = time;
+		this.taskQueue[this.taskQueue.length -1].wait = time;
 	}
 	return this
 }
@@ -296,7 +298,7 @@ Animation.prototype._syncTask = function(task){
 	}
 
 	var taskFn = task.taskFn;
-	taskFn(next,time);
+	taskFn(next);
 }
 
 /**
@@ -308,7 +310,7 @@ Animation.prototype._syncTask = function(task){
 Animation.prototype._asyncTask = function(task){
 	var me = this
 	//定义每一帧执行的回调函数
-	var enterFrame = function(time){
+	var enterframe = function(time){
 		var taskFn = task.taskFn
 		var next = function(){
 			//停止当前任务
@@ -319,7 +321,7 @@ Animation.prototype._asyncTask = function(task){
 		taskFn(next,time)
 	}
 
-	this.timeline.onenterframe = enterFrame;
+	this.timeline.onenterframe = enterframe;
 	this.timeline.start(this.interval);
 }
 
@@ -334,6 +336,10 @@ Animation.prototype._next = function(task){
 
 	task.wait ? setTimeout(function(){
 		me._runTask();
-	},task.wait):this.runTask();
+	},task.wait):this._runTask();
 
+}
+
+module.exports = function(){
+	return new Animation();
 }

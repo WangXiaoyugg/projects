@@ -6,30 +6,35 @@ var positions = ['0 -854','-174 -852','-349 -852',
 '-524 -852','-698 -852','-873 -848'];
 
 var elem = document.getElementById('rabbit');
+var animation = window.animation;
 
-animation(elem,positions,imgUrl);
+var repeatAnimation = animation().loadImage([imgUrl]).changePosition(elem,positions,imgUrl).repeatForever();
+repeatAnimation.start(80)					
 
 
-function animation(elem,positions,imgUrl){
+// animation(elem,positions,imgUrl);
 
-	elem.style.backgroundImage = 'url('+ imgUrl +')';
-	elem.style.backgroundRepeat = 'no-repeat';
 
-	var index = 0;
+// function animation(elem,positions,imgUrl){
 
-	function run(){
-		var pos = positions[index].split(' ');
-		elem.style.backgroundPosition = pos[0]+'px '+ pos[1]+'px'
+// 	elem.style.backgroundImage = 'url('+ imgUrl +')';
+// 	elem.style.backgroundRepeat = 'no-repeat';
 
-		index = index + 1;
+// 	var index = 0;
 
-		if(index > positions.length-1){
-			index = 0;
-		}
+// 	function run(){
+// 		var pos = positions[index].split(' ');
+// 		elem.style.backgroundPosition = pos[0]+'px '+ pos[1]+'px'
 
-		setTimeout(run,60)
+// 		index = index + 1;
+
+// 		if(index > positions.length-1){
+// 			index = 0;
+// 		}
+
+// 		setTimeout(run,60)
 		
-	}
+// 	}
 
-	run()
-}
+// 	run()
+// }
