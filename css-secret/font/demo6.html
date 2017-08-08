@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>华丽的&amp;符号</title>
+	<style>
+		.amp {
+           font-family: Baskerville, "Goudy Old Style",
+           Garamond, Palatino, serif;
+           font-style: italic;
+        }
+        /*本地无这些字体*/
+        @font-face {
+			font-family: Ampersand;
+			src: local('Baskerville'), local('GoudyOldStyle'), local('Garamond'), local('Palatino');
+			unicode-range: U+26;
+		}
+        h1{
+        	font-family: Ampersand,Helvetica,sans-serif;
+        }
+       /* @font-face{
+        	font-family: Ampersand,
+        	src:local('Baskerville-Italic'),
+        		local('GoudyOldStyleT-Italic'),
+        		local('Garamond-Italic'), 
+        		local('Palatino-Italic');
+        	unicode-range: U+26;		
+        }*/
+	</style>
+</head>
+<body>
+	<!-- HTML <span class="amp">&amp;</span> CSS -->
+	<h1>HTML & CSS</h1>
+</body>
+</html>
