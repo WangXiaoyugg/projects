@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>缓冲效果</title>
+	<style>
+		body{
+			background: linear-gradient(skyblue,white 450px,yellowgreen 0);
+			min-height: 100vh;
+		}
+		.ball{
+			width:0;height: 0;padding: 1.5em;
+			border-radius: 50%;
+			margin: auto;
+			background:red radial-gradient(at 30% 30%, #fdd,red);
+			/*当动画完成后，保持最后一个属性值（在最后一个关键帧中定义）*/
+			animation: bounce 2s cubic-bezier(.1,.25,1,.25) forwards;
+		}
+
+		@keyframes bounce{
+			60%,80%,to {
+				transform: translateY(400px);
+				animation-timing-function: ease;
+			}
+			70%{transform: translateY(300px);}
+			90%{transform: translateY(360px);}
+		}
+	</style>
+</head>
+<body>
+	<div class="ball"></div>
+</body>
+</html>

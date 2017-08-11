@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>环形路径移动的动画</title>
+	<style>
+		.avatar{
+			width: 50px;
+			height: 50px;
+			margin: 0 auto;
+			border-radius: 50%;
+			overflow: hidden;
+		}
+		.avatar > img {
+			display: block;
+			width: inherit;
+		}
+		.path {
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			background: #fb3;
+		}
+
+		@keyframes spin{
+			to {transform: rotate(1turn);}
+		}
+		.avatar{
+			animation: spin 3s infinite linear;
+			transform-origin: 50% 150px;
+		}
+		.avatar > img{
+			animation: inherit;
+			animation-direction: reverse;
+		}
+	</style>
+</head>
+<body>
+<div class="path">
+	<div class="avatar">
+		<img src="http://file.ituring.com.cn/SmallCover/010058d9d65a1caf5fe1" />
+	</div>
+</div>
+</body>
+</html>
