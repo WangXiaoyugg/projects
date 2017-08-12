@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片滑动</title>
+<style>
+.image-slider{
+	position: relative;
+	display: inline-block;
+}
+.image-slider>div{
+	position: absolute;
+	top:0;bottom: 0;left: 0;
+	width: 50%;
+	overflow: hidden;
+	filter: contrast(.5);
+	mix-blend-mode: luminosity;
+}
+.image-slider img{
+	display: block;
+	user-select:none;
+}
+.image-slider input{
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+	width: 100%;
+	margin: 0;
+}
+
+</style>	
+</head>
+<body>
+<div class="image-slider">
+<img src="http://csssecrets.io/images/adamcatlace-before.jpg" alt="Before" />
+<img src="http://csssecrets.io/images/adamcatlace.jpg" />	
+</div>
+<script>
+	function $(el){
+		return document.querySelectorAll(el);
+	}
+
+	$('.image-slider').forEach(function(slider){
+		var div = document.createElement('div')
+		var before = $('img')[0];
+		var after = $('img')[1];
+		div.appendChild(before);
+		slider.appendChild(div);
+		var range = document.createElement('input')
+		range.type = 'range';
+		range.oninput = function(){
+			div.style.width = this.value + '%';
+		}
+		slider.appendChild(range);
+	})
+</script>
+</body>
+</html>
